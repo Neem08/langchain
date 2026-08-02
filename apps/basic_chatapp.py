@@ -23,6 +23,8 @@ query = st.chat_input("ask anything")
 if query:
       st.session_state.messages.append({"role":"user","content":query})
       st.chat_message("user:").markdown(query)
+      if query.lower in ["bye","end","quit"]:
+        st.chat_message("ai").markdown("tata")
       res = llm.invoke(query)
       st.chat_message("ai:").markdown(res.text)
       st.session_state.messages.append({"role":"ai","content":res.text})
