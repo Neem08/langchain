@@ -5,3 +5,4 @@ streamlit
 langchain_groq
 langchain_ollama
 langchain_community
+langgraph
