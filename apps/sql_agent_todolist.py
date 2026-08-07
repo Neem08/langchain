@@ -7,8 +7,8 @@ from langgraph.checkpoint.memory import InMemorySaver
 import streamlit as st
 
 load_dotenv()
-llm = ChatGroq(model ="grok-4.5")
-
+llm = ChatGroq(model ="openai/gpt-oss-20b")
+print(llm)
 db= SQLDatabase.from_uri("sqlite:///my_tasks.db")
 db.run("""
        CREATE TABLE IF NOT EXISTS tasks(
@@ -27,6 +27,12 @@ db.run("""
  
 toolkit = SQLDatabaseToolkit(db=db, llm =llm)
 tools = toolkit.get_tools()
+
+for tool in tools :
+    print(tool.name)
+    
+
+print(llm.invoke("Hi who is the PM of australia?"))
 
 system_prompt="""
 You are a task management assistant that interacts with a SQL database containing a 'tasks' table. 
@@ -57,6 +63,8 @@ def get_agent():
 
 agent = get_agent()
 
+st.subheader("📜 TaskGPT - your task checker")
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
     
@@ -64,7 +72,7 @@ for message in st.session_state.messages:
     st.chat_message(message['role']).markdown(message['content'])
     
 
-st.subheader("📜 Taskify - your task checker")
+
 query = st.chat_input("what are your tasks for today")
 
 if query:
