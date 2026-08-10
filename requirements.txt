@@ -10,3 +10,4 @@ pypdf
 beautifulsoup4 
 wikipedia
 requests
+langchain_chroma
