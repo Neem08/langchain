@@ -11,3 +11,5 @@ beautifulsoup4
 wikipedia
 requests
 langchain_chroma
+pydantic
+langchain-tavily
